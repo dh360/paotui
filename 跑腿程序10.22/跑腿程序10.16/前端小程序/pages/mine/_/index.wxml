@@ -1,0 +1,127 @@
+<view class="container">
+    <dialog bindclose="onDialogClose" hidden="{{dialogType!='authorize'}}" maskOpacity="0.5">
+        <view class="dialog-authorize">
+            <view class="content">
+                <view class="caption">校园跑腿申请获取以下权限：</view>
+                <view class="desc">• 获得你的公开信息（昵称、头像等）</view>
+            </view>
+            <button bindgetuserinfo="onAuthorizeCallback" openType="getUserInfo">立即授权</button>
+            <button bindtap="onAuthorizeClose">取消授权</button>
+        </view>
+    </dialog>
+    <view class="header">
+        <view class="profile">
+            <view bind:tap="onAvatarTap" catch:longtap="onAvatarLongTap" class="avatar">
+                <view catchtap="onAuthTap" class="auth{{model.VerifyStatus==3?' auth-warn':''}}" hoverClass="navigator-hover" wx:if="{{model.VerifyStatus!=2}}">
+                    <text class="iconfont {{model.VerifyStatus==1?'icon-time':model.VerifyStatus==3?'icon-warn':'icon-coin'}}"></text>{{model.VerifyStatus==1?'认证审核中':model.VerifyStatus==3?'认证审核失败':'认证学生赚赏金'}}</view>
+                <avatar color="#ddd" size="160" src="{{userInfo.AvatarUrl}}"></avatar>
+            </view>
+            <text class="name">{{userInfo.NickName}} - {{userId}}</text>
+        </view>
+
+    
+
+        <view class="assets">
+            <navigator url="../../balance/balance">
+                <text class="money money-yuan">{{model.Balance}}</text>
+                <text class="type">余额</text>
+            </navigator>
+            <navigator url="../coupon/index">
+                <text class="money money-ge">{{model.CouponCount}}</text>
+                <text class="type">红包</text>
+            </navigator>
+            <navigator url="../coin/index">
+                <text class="money money-ge">{{model.CoinCount}}</text>
+                <text class="type">积分</text>
+            </navigator>
+        </view>
+    </view>
+    <view class="body">
+        <view class="section">
+
+            <navigator class="item" url="../../finance/recharge">
+                <text class="title">余额充值 {{model.Balance}}</text>
+                <text class="iconfont icon-right_light"></text>
+            </navigator>
+            <view class="hr" wx:if="{{notifyFlag2==0}}"></view>
+             <view class="item" bindtap="switchChangeMsg" wx:if="{{notifyFlag2==0}}">
+                <text class="title">点击订阅一次性消息</text>
+                <text class="iconfont icon-right_light"></text>
+            </view>
+            <view class="hr"></view>
+
+
+            <view class="hr" wx:if="{{setting.is_thread_open==1}}"></view>
+             <navigator class="item" url="../../thread/mypost/mypost" wx:if="{{setting.is_thread_open==1}}">
+                <text class="title">我发布的信息 </text>
+                <text class="iconfont icon-right_light"></text>
+            </navigator>
+            <view class="hr" wx:if="{{setting.is_thread_open==1}}"></view>
+             <navigator class="item" url="../../thread/mypost/Collection" wx:if="{{setting.is_thread_open==1}}">
+                <text class="title">我收藏的信息 </text>
+                <text class="iconfont icon-right_light"></text>
+            </navigator>
+
+
+
+            <view class="hr" wx:if="{{setting.is_canvas_open=='1'}}"></view>
+             <navigator class="item" url="../canvas/canvas" wx:if="{{setting.is_canvas_open=='1'}}">
+                <text class="title">推广海报 </text>
+                <text class="iconfont icon-right_light"></text>
+            </navigator>
+
+            <view class="hr" wx:if="{{setting.is_pinche_open=='1'}}"></view>
+             <navigator class="item" url="../../shun/mine_car/mine_car" wx:if="{{setting.is_pinche_open=='1'}}">
+                <text class="title">我的拼车</text>
+                <text class="iconfont icon-right_light"></text>
+            </navigator>
+
+             <view class="hr" wx:if="{{setting.is_group_open=='1'}}"></view>
+             <navigator class="item" url="../../collage/group_order" wx:if="{{setting.is_group_open=='1'}}">
+                <text class="title">我的拼团</text>
+                <text class="iconfont icon-right_light"></text>
+            </navigator>
+
+            <view class="hr"></view>
+             <navigator class="item" url="../../my/news/index">
+                <text class="title">接单设置</text>
+                <text class="iconfont icon-right_light"></text>
+            </navigator>
+
+        </view>
+
+       
+        <view class="section">
+          <form bindsubmit="onFormSubmit2" reportSubmit="true">
+              <button class="item" formType="submit">
+                  <text class="title">增加收信息次数{{model.count}}</text>
+                  <text class="iconfont icon-right_light"></text>
+              </button>
+          </form>
+        </view>
+
+
+          <view class="section">
+              <button class="item" bindtap="onServiceShop" plain="true">
+                  <text class="title">商家管理后台</text>
+                  <text class="iconfont icon-right_light"></text>
+              </button>
+          </view>
+
+
+        <view class="section">
+            <button class="item" openType="contact" plain="true">
+                <text class="title">在线客服</text>
+                <text class="iconfont icon-right_light"></text>
+            </button>
+        </view>
+
+        
+
+        <view class="service">
+            <view wx:if="{{model.ServicePhone&&model.ServicePhone.length}}">客服电话：<text bindtap="onServicePhoneTap" hoverClass="navigator-hover">{{model.ServicePhone}}</text>
+            </view>
+            <view bindtap="onServiceDescTap" wx:if="{{model.ServiceDesc}}">{{model.ServiceDesc}}</view>
+        </view>
+    </view>
+</view>

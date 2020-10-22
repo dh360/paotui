@@ -1,0 +1,56 @@
+<view class="container">
+
+
+    <view class="header">
+        <view class="header-top">
+            <text class="iconfont icon-search"></text>
+            <input class="query" bindinput="bindinput" focus="true" placeholder="搜索商家名称"></input>
+            <text bindtap="search" class="query-search">搜索</text>
+        </view>
+    </view>
+
+
+    <view class="body">
+        
+        <view class="body-list">
+		
+		
+            <view class="item {{item.IsClosed==1?'actived':''}}" wx:for="{{model}}" wx:key="Id">
+                <navigator url="index?id={{item.shop_id}}&cate_id={{item.cate}}"></navigator>
+                <image class="logo" src="{{item.img}}"></image>
+                <view>
+                    <text class="name">{{item.shop_name}}</text>
+                    <view class="grade">
+                        <view class="left">
+                            <text class="score">
+                                <text class="iconfont icon-star_fill"></text>
+                                <text class="iconfont icon-star_fill"></text>
+                                <text class="iconfont icon-star_fill"></text>
+                                <text class="iconfont icon-star_fill"></text>
+                                <text class="iconfont icon-star_half"></text>
+                                <text class="value">{{item.score}}</text>
+                            </text>
+                            <text class="sale">月销{{item.sold_num}}单</text>
+                            <text class="sale IsClosed" wx:if="{{item.IsClosed==1}}">已打样</text>
+                        </view>
+                        <view class="right">
+                            <text class="distance"></text>
+                            <text class="minutes"></text>
+                        </view>
+                    </view>
+                    <view class="desc">
+                        <text class="money">{{item.SinceMoney}}元起送</text>
+                        <text class="money">配送费{{item.Logistics}}元</text>
+                    </view>
+                    <view class="promotions">
+                        <view>
+                            <text>促</text>总价满{{item.LogisticsFull}}元免配送费</view>
+                    </view>
+                </view>
+            </view>
+			
+			
+            
+        </view>
+    </view>
+</view>

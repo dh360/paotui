@@ -1,0 +1,11 @@
+{
+    "navigationBarTitleText": "校园集市",
+    "backgroundColor": "#06c1ae",
+    "enablePullDownRefresh": true,
+    "backgroundTextStyle": "light",
+    "component": true,
+    "usingComponents": {
+        "dialog": "/components/dialog",
+        "avatar": "/components/avatar"
+    }
+}
